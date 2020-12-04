@@ -11,11 +11,12 @@ using namespace std;
 
 int main(int argc, char *argv[]){
     ifstream routes;
-    ifstream aiports;
+    ifstream airports;
 
     routes.open("test.dat");
-    airports.open("airports.dat")
+    airports.open("airports.dat");
     parseRoutes(routes);
+    parseAirports(airports);
 
     
     return 0;
