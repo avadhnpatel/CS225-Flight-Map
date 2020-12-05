@@ -8,6 +8,7 @@
 #include <string.h>
 #include <math.h>
 #include "graph.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -59,12 +60,12 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
             airportName.erase(0, 1);
             airportName.erase(airportName.size() - 1);
 
-            newport.longitude = std::stod(strlongitude);
-            newport.latitude = std::stod(strlatitude);
+            newport.longitude = stod(strlongitude);
+            newport.latitude = stod(strlatitude);
             newport.airportName = airportName;
             newport.iata = iata;
 
-            airportNames[iata] = airportName;
+            airportNames[iata] = airportName;   
             airportData[airportName] = newport;
         }
         //cout << longitude << "  "<< latitude << "  ";
