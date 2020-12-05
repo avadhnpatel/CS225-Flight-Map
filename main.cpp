@@ -49,11 +49,11 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
         while(getline(ss, line, ',')){
             result.push_back(line);
         }
+        iata = result[4];
         if(iata != "\"N/A\""){
-            strlongitude = result[6];
-            strlatitude = result[7];
+            strlongitude = result[7];
+            strlatitude = result[6];
             airportName = result[1];
-            iata = result[4];
 
             iata.erase(0, 1);
             iata.erase(iata.size() - 1);
@@ -91,7 +91,7 @@ void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string
         double destlat = airportData[airportNames[destAirportID]].latitude;
         double distance = findDist(srclong, srclat, destlong, destlat);
 
-        cout << srcAirportID << "  "<< destAirportID << "  " << distance;
+        cout << srcAirportID << "  "<< destAirportID << "  " << distance << "\n";
     }
 }
 
