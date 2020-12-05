@@ -9,7 +9,7 @@
 #include "graph.h"
 
 using namespace std;
-
+//  ROSHUN IS GAY
 void parseAirports(ifstream &airnames, map<string, Airports> &airportData);
 void parseRoutes(ifstream &routes, map<string,Airports> &airportData);
 
@@ -73,7 +73,7 @@ void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string
         }
         srcAirportID = result[2];
         destAirportID = result[4];
-        double longitude =  airportData[airportNames[srcAirportID]].longitude;
+        double longitude = airportData[airportNames[srcAirportID]].longitude;
         
         // cout << srcAirportID << "  "<< destAirportID << "  ";
     }
