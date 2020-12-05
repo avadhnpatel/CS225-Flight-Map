@@ -60,8 +60,8 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
             airportName.erase(0, 1);
             airportName.erase(airportName.size() - 1);
 
-            newport.longitude = stod(strlongitude);
-            newport.latitude = stod(strlatitude);
+            newport.longitude = atof(strlongitude.c_str());
+            newport.latitude = atof(strlatitude.c_str());
             newport.airportName = airportName;
             newport.iata = iata;
 
