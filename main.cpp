@@ -17,6 +17,7 @@ int main(int argc, char *argv[]){
 
     map<string, Airports> airportData;
     map<string, string> airportRoutes;
+    map<string, string> airportNames;
 
 
     ifstream routes;
@@ -24,14 +25,14 @@ int main(int argc, char *argv[]){
 
     routes.open("test.dat");
     airnames.open("airports.dat");
-    parseAirports(airnames, airportData);
-    parseRoutes(routes, airportData);
+    parseAirports(airnames, airportData, airportNames);
+    parseRoutes(routes, airportData, airportNames);
 
     
     return 0;
 }
 
-void parseAirports(ifstream &airnames, map<string, Airports> &airportData){
+void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<string, string> &airportNames){
     vector<string> result;
     string line;
     string longitude;
@@ -54,12 +55,12 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData){
         newport.airportName = airportName;
         newport.iata = iata;
 
-        
+        airportNames[iata] = airportName;
         airportData[airportName] = newport;
         //cout << longitude << "  "<< latitude << "  ";
     }
 }
-void parseRoutes(ifstream &routes, map<string,Airports> &airportData){
+void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames){
     vector<string> result;
     string line;
     string srcAirportID;
@@ -72,7 +73,7 @@ void parseRoutes(ifstream &routes, map<string,Airports> &airportData){
         }
         srcAirportID = result[2];
         destAirportID = result[4];
-
+        double longitude =  airportData[airportNames[srcAirportID]].longitude;
         
         // cout << srcAirportID << "  "<< destAirportID << "  ";
     }
