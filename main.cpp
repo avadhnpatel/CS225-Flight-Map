@@ -8,7 +8,10 @@
 #include <string.h>
 #include <math.h>
 #include "graph.h"
+#include "edge.h"
 #include <cstdlib>
+#include <list>
+
 
 using namespace std;
 
