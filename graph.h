@@ -7,8 +7,8 @@
 using namespace std;
 
 struct Airports{
-    string longitude;
-    string latitude;
+    double longitude;
+    double latitude;
 
     string airportName;
     string iata;
