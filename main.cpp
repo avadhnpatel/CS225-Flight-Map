@@ -22,6 +22,9 @@ double findDist(double srclong, double srclat, double destlong, double destlat);
 
 int main(int argc, char *argv[]){
 
+    (void)argv;
+    (void)argc;
+
     Graph flightMap(true, true);
 
     map<string, Airports> airportData;
@@ -109,7 +112,7 @@ void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string
         
         flightMap.insertEdge(airportNames[srcAirportIATA], airportNames[destAirportIATA]);
         flightMap.setEdgeWeight(airportNames[srcAirportIATA], airportNames[destAirportIATA], distance);
-        flightMap.setEdgeLabel(airportNames[srcAirportIATA], airportNames[destAirportIATA], "distance");
+        flightMap.setEdgeLabel(airportNames[srcAirportIATA], airportNames[destAirportIATA], srcAirportIATA + " - " + destAirportIATA);
         //cout << srcAirportIATA << "  "<< destAirportIATA << "  " << distance << "\n";
     }
 }
