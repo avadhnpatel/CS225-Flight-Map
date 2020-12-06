@@ -15,8 +15,13 @@
 
 #include "graph.h"
 #include "edge.h"
+#include "dijkstra.h"
+
 
 class BFS{
-    void BFSearch(Graph flightMap);
-    void BFSearch(Graph flightMap, Vertex v);
+    public:
+        BFS (const Graph &flightMap);
+        vector<Vertex> BFSearch(const Vertex &v);
+    private:
+        Graph flightMap_;
 };
