@@ -66,7 +66,6 @@ public:
      * @return a vector of all vertices in the graph
      */
     vector<Vertex> getVertices() const;
-    
 
     /**
      * Gets an edge between two vertices.
@@ -88,7 +87,7 @@ public:
      * @return - if Vertex exists, true
      *         - if Vertex doesn't exist, return false
      */
-    bool vertexExists (Vertex v) const;
+    bool vertexExists(Vertex v) const;
 
     /**
      * Checks if edge exists between two vertices exists.
@@ -97,14 +96,14 @@ public:
      */
     bool edgeExists(Vertex source, Vertex destination) const;
 
-        /**
+    /**
      * Sets the edge label of the edge between vertices u and v.
      * @param source - one vertex the edge is connected to
      * @param destination - the other vertex the edge is connected to
      * @return - if edge exists, set the label to the corresponding edge(if not directed, set the reverse one too), return edge with new label
      *         - if edge doesn't exist, return InvalidEdge
      */
-        Edge setEdgeLabel(Vertex source, Vertex destination, string label);
+    Edge setEdgeLabel(Vertex source, Vertex destination, string label);
 
     /**
      * Gets the edge label of the edge between vertices u and v.
@@ -194,7 +193,6 @@ public:
 
     void clear();
 
-
     const static Vertex InvalidVertex;
     const static Edge InvalidEdge;
     const static int InvalidWeight;
@@ -205,10 +203,9 @@ private:
 
     bool weighted;
     bool directed;
-//    Random random;
+    //    Random random;
     int picNum;
     string picName;
-
 
     /**
      * Returns whether a given vertex exists in the graph.
@@ -227,7 +224,6 @@ private:
      */
     bool assertEdgeExists(Vertex source, Vertex destination, string functionName) const;
 
-
     /**
      * Prints a graph error and quits the program.
      * The program is exited with a segfault to provide a stack trace.
@@ -235,4 +231,3 @@ private:
      */
     void error(string message) const;
 };
-
