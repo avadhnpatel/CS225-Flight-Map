@@ -11,7 +11,7 @@
 #include <list>
 #include "graph.h"
 #include "edge.h"
-
+#include "dijkstra.h"
 
 using namespace std;
 

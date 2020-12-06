@@ -1,6 +1,4 @@
 #pragma once
-#include "graph.h"
-#include "edge.h"
 #include <list>
 #include <unordered_map>
 #include <utility>
@@ -14,3 +12,16 @@
 #include <set>
 #include <sstream>
 #include <vector>
+
+#include "graph.h"
+#include "edge.h"
+
+using namespace std;
+
+class Dijkstra{
+    void dijkstra(Graph flightMap, string srcAirport);
+
+};
+
+    
+
