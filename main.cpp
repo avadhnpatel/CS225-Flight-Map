@@ -7,38 +7,40 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "graph.h"
-#include "edge.h"
 #include <cstdlib>
 #include <list>
+#include "graph.h"
+#include "edge.h"
 
 
 using namespace std;
 
-void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<string, string> &airportNames);
-void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames);
+
+void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<string, string> &airportNames, Graph &flightMap);
+void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames, Graph &flightMap);
 double findDist(double srclong, double srclat, double destlong, double destlat);
 
 int main(int argc, char *argv[]){
+
+    Graph flightMap(true, true);
 
     map<string, Airports> airportData;
     map<string, string> airportRoutes;
     map<string, string> airportNames;
 
-
     ifstream routes;
     ifstream airnames;
 
-    routes.open("testR.dat");
+    routes.open("routes.dat");
     airnames.open("airports.dat");
-    parseAirports(airnames, airportData, airportNames);
-    parseRoutes(routes, airportData, airportNames);
+    parseAirports(airnames, airportData, airportNames, flightMap);
+    parseRoutes(routes, airportData, airportNames, flightMap);
 
-    
+    flightMap.print();
     return 0;
 }
 
-void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<string, string> &airportNames){
+void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<string, string> &airportNames, Graph &flightMap){
     vector<string> result;
     string line;
     string strlongitude;
@@ -70,31 +72,45 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
 
             airportNames[iata] = airportName;   
             airportData[airportName] = newport;
+            if(!flightMap.vertexExists(airportName)){
+                flightMap.insertVertex(airportName);
+            }
         }
         //cout << longitude << "  "<< latitude << "  ";
     }
 }
-void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames){
+void parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames, Graph &flightMap){
     vector<string> result;
     string line;
-    string srcAirportID;
-    string destAirportID;
+    string srcAirportIATA;
+    string destAirportIATA;
     while(getline(routes, line)){
         result.clear();
         stringstream ss(line);
         while(getline(ss, line, ',')){
             result.push_back(line);
         }
-        srcAirportID = result[2];
-        destAirportID = result[4];
-        double srclong = airportData[airportNames[srcAirportID]].longitude;
-        double srclat = airportData[airportNames[srcAirportID]].latitude;
+        srcAirportIATA = result[2];
+        destAirportIATA = result[4];
+        double srclong = airportData[airportNames[srcAirportIATA]].longitude;
+        double srclat = airportData[airportNames[srcAirportIATA]].latitude;
 
-        double destlong = airportData[airportNames[destAirportID]].longitude;
-        double destlat = airportData[airportNames[destAirportID]].latitude;
+        double destlong = airportData[airportNames[destAirportIATA]].longitude;
+        double destlat = airportData[airportNames[destAirportIATA]].latitude;
         double distance = findDist(srclong, srclat, destlong, destlat);
 
-        cout << srcAirportID << "  "<< destAirportID << "  " << distance << "\n";
+        // if(!flightMap.vertexExists(srcAirportIATA)){
+        //     flightMap.insertVertex(srcAirportIATA);
+        // }
+        // if(!flightMap.vertexExists(destAirportIATA)){
+        //     flightMap.insertVertex(destAirportIATA);
+        // }
+        
+        
+        flightMap.insertEdge(airportNames[srcAirportIATA], airportNames[destAirportIATA]);
+        flightMap.setEdgeWeight(airportNames[srcAirportIATA], airportNames[destAirportIATA], distance);
+        flightMap.setEdgeLabel(airportNames[srcAirportIATA], airportNames[destAirportIATA], "distance");
+        //cout << srcAirportIATA << "  "<< destAirportIATA << "  " << distance << "\n";
     }
 }
 
@@ -122,7 +138,7 @@ double findDist(double srclong, double srclat, double destlong, double destlat){
     // Radius of Earth in  
     // Kilometers, R = 6371 
     // Use R = 3956 for miles 
-    long double R = 6371; 
+    long double R = 3956; 
       
     // Calculate the result 
     ans = ans * R; 
