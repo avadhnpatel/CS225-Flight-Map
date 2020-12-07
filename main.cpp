@@ -12,6 +12,7 @@
 #include "graph.h"
 #include "edge.h"
 #include "dijkstra.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -36,41 +37,60 @@ int main(int argc, char *argv[]){
 
     string src;
     string arrive;
-    string test;
+    string land;
 
     routes.open("routes.dat");
     airnames.open("airports.dat");
     parseAirports(airnames, airportData, airportNames, flightMap);
     parseRoutes(routes, airportData, airportNames, flightMap);
 
-    
+    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+    getline(cin, land);
+    while(land != "Landmark" && land != "Fastest"){
+        cout << "Sorry this is not a valid entry. Please try again.\n";
+        cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+        getline(cin, land);
+    }
+    if(land == "Fastest"){
 
-    cout << "Input your departing airport: ";
-    getline(cin, src);
-
-    while(airportData.count(src) < 1){
-        cout << "Sorry this airport does not exist. Please input another one.\n";
         cout << "Input your departing airport: ";
         getline(cin, src);
-    }
+
+        while(airportData.count(src) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your departing airport: ";
+            getline(cin, src);
+        }
 
 
-    cout << "Input your arriving airport: ";
-    getline(cin, arrive);
-    while(airportData.count(arrive) < 1){
-        cout << "Sorry this airport does not exist. Please input another one.\n";
         cout << "Input your arriving airport: ";
         getline(cin, arrive);
-    }
+        while(airportData.count(arrive) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n";
+            cout << "Input your arriving airport: ";
+            getline(cin, arrive);
+        }
 
-    //flightMap.print();
-    Dijkstra dijkstraTest;
-    vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
-    
-    while (path.size() != 0) {
-        cout << path.back() << endl;
-        path.pop_back();
-    }
+        //flightMap.print();
+        Dijkstra dijkstraTest;
+        vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
+        vector<Vertex> rightOrder;
+        unsigned long i = 0;
+        unsigned long j = 1;
+        reverse(path.begin(),path.end());
+
+        while(i != path.size()){
+            cout << path[0] << endl;
+            i++;
+        }
+
+        
+
+    }else if(land == "Landmark"){
+            cout << "landmark algo";
+           return 0; 
+        }
+
     return 0;
 }
 
