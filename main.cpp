@@ -34,14 +34,38 @@ int main(int argc, char *argv[]){
     ifstream routes;
     ifstream airnames;
 
+    string src;
+    string arrive;
+    string test;
+
     routes.open("routes.dat");
     airnames.open("airports.dat");
     parseAirports(airnames, airportData, airportNames, flightMap);
     parseRoutes(routes, airportData, airportNames, flightMap);
 
+    
+
+    cout << "Input your departing airport: ";
+    getline(cin, src);
+
+    while(airportData.count(src) < 1){
+        cout << "Sorry this airport does not exist. Please input another one.\n";
+        cout << "Input your departing airport: ";
+        getline(cin, src);
+    }
+
+
+    cout << "Input your arriving airport: ";
+    getline(cin, arrive);
+    while(airportData.count(arrive) < 1){
+        cout << "Sorry this airport does not exist. Please input another one.\n";
+        cout << "Input your arriving airport: ";
+        getline(cin, arrive);
+    }
+
     //flightMap.print();
     Dijkstra dijkstraTest;
-    vector<Vertex> path = dijkstraTest.dijkstra(flightMap, "Los Angeles International Airport", "La Guardia Airport");
+    vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
     
     while (path.size() != 0) {
         cout << path.back() << endl;
