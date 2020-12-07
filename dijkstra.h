@@ -19,7 +19,8 @@
 using namespace std;
 
 class Dijkstra{
-    void dijkstra(Graph flightMap, string srcAirport);
+    public:
+        vector<Vertex> dijkstra(Graph flightMap, Vertex srcAirport, Vertex destAirport);
 
 };
 

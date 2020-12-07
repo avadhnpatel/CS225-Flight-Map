@@ -39,7 +39,14 @@ int main(int argc, char *argv[]){
     parseAirports(airnames, airportData, airportNames, flightMap);
     parseRoutes(routes, airportData, airportNames, flightMap);
 
-    flightMap.print();
+    //flightMap.print();
+    Dijkstra dijkstraTest;
+    vector<Vertex> path = dijkstraTest.dijkstra(flightMap, "Los Angeles International Airport", "La Guardia Airport");
+    
+    while (path.size() != 0) {
+        cout << path.back() << endl;
+        path.pop_back();
+    }
     return 0;
 }
 
