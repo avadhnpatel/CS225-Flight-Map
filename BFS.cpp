@@ -14,6 +14,8 @@
 #include <queue>
 #include <stdexcept>
 #include <unordered_set>
+#include <map>
+
 
 #include "dijkstra.h"
 #include "graph.h"
@@ -30,26 +32,55 @@ vector<Vertex> BFS::BFSearch(const Vertex &v){
   if (flightMap_.vertexExists(v) == false){
     throw invalid_argument("Invalid start vertex");
   }
-  queue<string> q;
-  q.push(v);
-  unordered_set<string> visitVert;
 
-  while(q.empty() == false){
-    string currVertex = q.front();
-    q.pop();
-    if(visitVert.find(currVertex) == visitVert.end()){
-      visitVert.insert(currVertex);
+  queue<Vertex> BFSqueue;
+  map<Vertex, bool> visited;
+  visited[v] = true;
 
-      cout << "Visited: " << currVertex << endl;
+  vector<Vertex> output;
 
-      for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){
-        cout << "Reached: " << adjVertex << endl;
-        q.push(adjVertex);
-      }
+  BFSqueue.push(v);
+
+  while(!BFSqueue.empty()){
+    Vertex currVertex = BFSqueue.front();
+    BFSqueue.pop();
+
+    cout << " Visited: " << currVertex << endl;
+    output.push_back(currVertex);
+    for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){
+      cout << " Reached: " << adjVertex << endl;
+      if(visited.count(adjVertex) == 0)
+        BFSqueue.push(adjVertex);
+        visited[adjVertex] = true;
     }
   }
-
+  return output;
 }
+
+// vector<Vertex> BFS::BFSearch(const Vertex &v){
+//   if (flightMap_.vertexExists(v) == false){
+//     throw invalid_argument("Invalid start vertex");
+//   }
+//   queue<string> q;
+//   q.push(v);
+//   unordered_set<string> visitVert;
+
+//   while(q.empty() == false){
+//     string currVertex = q.front();
+//     q.pop();
+//     if(visitVert.find(currVertex) == visitVert.end()){
+//       visitVert.insert(currVertex);
+
+//       cout << "Visited: " << currVertex << endl;
+
+//       for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){
+//         cout << "Reached: " << adjVertex << endl;
+//         q.push(adjVertex);
+//       }
+//     }
+//   }
+
+// }
 
 // DFS::DFS(const Graph &graph) : graph_(graph) { graph_.print(); }
  
