@@ -21,7 +21,7 @@ using namespace std;
 class Dijkstra{
     public:
         vector<Vertex> dijkstra(Graph flightMap, Vertex srcAirport, Vertex destAirport);
-
+        vector<Vertex> landmarkPath(Graph flightMap, Vertex srcAirport, Vertex middleAirport, Vertex dstAirport);
 };
 
     

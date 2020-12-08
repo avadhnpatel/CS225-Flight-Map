@@ -36,6 +36,7 @@ int main(int argc, char *argv[]){
     ifstream airnames;
 
     string src;
+    string mid;
     string arrive;
     string land;
 
@@ -47,6 +48,12 @@ int main(int argc, char *argv[]){
     cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
     getline(cin, land);
     while(land != "Landmark" && land != "Fastest"){
+        if(land == "Gulag"){
+            cout<<"We agree that Roshun is gay! but for real give me an input\n";
+            cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+            getline(cin, land);
+            continue;
+        }
         cout << "Sorry this is not a valid entry. Please try again.\n";
         cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
         getline(cin, land);
@@ -55,7 +62,12 @@ int main(int argc, char *argv[]){
 
         cout << "Input your departing airport: ";
         getline(cin, src);
-
+        if(src == "Hell"){
+            src = "Newark Liberty International Airport";
+        }
+        if(src == "Home"){
+            src = "University of Illinois Willard Airport";
+        }
         while(airportData.count(src) < 1){
             cout << "Sorry this airport does not exist. Please input another one.\n ";
             cout << "Input your departing airport: ";
@@ -65,6 +77,12 @@ int main(int argc, char *argv[]){
 
         cout << "Input your arriving airport: ";
         getline(cin, arrive);
+        if(arrive == "Hell"){
+            arrive = "Newark Liberty International Airport";
+        }
+        if(arrive == "Home"){
+            arrive = "University of Illinois Willard Airport";
+        }
         while(airportData.count(arrive) < 1){
             cout << "Sorry this airport does not exist. Please input another one.\n";
             cout << "Input your arriving airport: ";
@@ -74,23 +92,68 @@ int main(int argc, char *argv[]){
         //flightMap.print();
         Dijkstra dijkstraTest;
         vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
-        vector<Vertex> rightOrder;
-        unsigned long i = 0;
-        unsigned long j = 1;
         reverse(path.begin(),path.end());
-
-        while(i != path.size()){
-            cout << path[0] << endl;
-            i++;
+        double count = 0;
+        for(size_t i = 1; i < path.size(); i++){
+            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
+            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+        }
+        cout << "\n" << "Your total flight distance will be " << count << " miles\n";
+    }
+    else if(land == "Landmark"){
+        cout << "Input your departing airport: ";
+        getline(cin, src);
+        if(src == "Hell"){
+            src = "Newark Liberty International Airport";
+        }
+        if(src == "Home"){
+            src = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(src) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your departing airport: ";
+            getline(cin, src);
         }
 
-        
-
-    }else if(land == "Landmark"){
-            cout << "landmark algo";
-           return 0; 
+        cout << "Input your connecting airport: ";
+        getline(cin, mid);
+        if(mid == "Hell"){
+            mid = "Newark Liberty International Airport";
+        }
+        if(mid == "Home"){
+            mid = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(mid) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your connecting airport: ";
+            getline(cin, mid);
         }
 
+        cout << "Input your arriving airport: ";
+        getline(cin, arrive);
+        if(arrive == "Hell"){
+            arrive = "Newark Liberty International Airport";
+        }
+        if(arrive == "Home"){
+            arrive = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(arrive) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n";
+            cout << "Input your arriving airport: ";
+            getline(cin, arrive);
+        }
+
+        //flightMap.print();
+        Dijkstra dijkstraTest;
+        vector<Vertex> path = dijkstraTest.landmarkPath(flightMap, src, mid,arrive);
+        // reverse(path.begin(),path.end());
+        double count = 0;
+        for(size_t i = 1; i < path.size(); i++){
+            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
+            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+        }
+        cout << "\n" << "Your total flight distance will be " << count << " miles\n";
+        }
     return 0;
 }
 

@@ -27,7 +27,7 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
     
     vector<Vertex> allVertices = flightMap.getVertices();
     vector<VertexWeight*> allVertexWeights;
-    for (int i = 0; i < allVertices.size(); i++) {
+    for (size_t i = 0; i < allVertices.size(); i++) {
         VertexWeight *newVertexWeight = new VertexWeight;
         newVertexWeight->vertexName = allVertices.at(i);
         newVertexWeight->distance = std::numeric_limits<double>::max();
@@ -51,7 +51,7 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
         
         if (!current->visited) {
             vector<Vertex> neighborList = flightMap.getAdjacent(current->vertexName);
-            for (int i = 0; i < neighborList.size(); i++) {
+            for (size_t i = 0; i < neighborList.size(); i++) {
                 VertexWeight *neighbor = vertexMap[neighborList.at(i)];
                 if (!neighbor->visited) {
                     double currentToNeighborEdgeWeight = flightMap.getEdgeWeight(current->vertexName, neighbor->vertexName);
@@ -75,11 +75,23 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
         vertexPath.push_back(vertexMap[vertexPath.back()]->previous);
     }
     
-    for (int i = 0; i<allVertexWeights.size(); i++) {
+    for (size_t i = 0; i<allVertexWeights.size(); i++) {
         delete allVertexWeights.at(i);
     }
     
     // returns the path in reverse order
     return vertexPath;
     
+}
+
+vector<Vertex> Dijkstra::landmarkPath(Graph flightMap, Vertex srcAirport, Vertex middleAirport, Vertex dstAirport){
+    vector<Vertex> dijkstraOne = dijkstra(flightMap, srcAirport, middleAirport);
+    vector<Vertex> dijkstraTwo = dijkstra(flightMap, middleAirport, dstAirport);
+    reverse(dijkstraOne.begin(),dijkstraOne.end());
+    reverse(dijkstraTwo.begin(),dijkstraTwo.end());
+    dijkstraTwo.erase(dijkstraTwo.begin());
+    for(size_t x =0; x<dijkstraTwo.size(); x++){
+        dijkstraOne.push_back(dijkstraTwo[x]);
+    }
+    return dijkstraOne;
 }
