@@ -27,148 +27,156 @@ int main(int argc, char *argv[]){
     (void)argv;
     (void)argc;
 
-    // Graph flightMap(true, true);
+    Graph flightMap(true, true);
 
-    // map<string, Airports> airportData;
-    // map<string, string> airportRoutes;
-    // map<string, string> airportNames;
+    map<string, Airports> airportData;
+    map<string, string> airportRoutes;
+    map<string, string> airportNames;
 
-    // ifstream routes;
-    // ifstream airnames;
+    ifstream routes;
+    ifstream airnames;
 
-    // string src;
-    // string mid;
-    // string arrive;
-    // string land;
+    string src;
+    string mid;
+    string arrive;
+    string land;
 
-    // routes.open("routes.dat");
-    // airnames.open("airports.dat");
-    // parseAirports(airnames, airportData, airportNames, flightMap);
-    // parseRoutes(routes, airportData, airportNames, flightMap);
-    Graph g(false, true);
-    g.insertEdge("0", "1");
-    g.insertEdge("0", "2");
-    g.insertEdge("1", "2");
-    g.insertEdge("2", "0");
-    g.insertEdge("2", "3");
-    g.insertEdge("3", "3");
+    routes.open("routes.dat");
+    airnames.open("airports.dat");
+    parseAirports(airnames, airportData, airportNames, flightMap);
+    parseRoutes(routes, airportData, airportNames, flightMap);
+    
+    
+    
+    // Graph g(false, true);
+    // g.insertEdge("0", "1");
+    // g.insertEdge("0", "2");
+    // g.insertEdge("1", "2");
+    // g.insertEdge("2", "0");
+    // g.insertEdge("2", "3");
+    // g.insertEdge("3", "3");
 
-    BFS search(g);
-    vector<Vertex> BFSoutput = search.BFSearch("2");
+    // BFS search(g);
+    // vector<Vertex> BFSoutput = search.BFSearch("2");
 
-    for(size_t i = 0; i < BFSoutput.size(); i++){
-        cout << BFSoutput[i] << endl;
+    // for(size_t i = 0; i < BFSoutput.size(); i++){
+    //     cout << BFSoutput[i] << endl;
+    // }
+
+
+
+
+    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+    getline(cin, land);
+    while(land != "Landmark" && land != "Fastest"){
+        if(land == "Gulag"){
+            cout<<"We agree that Roshun is gay! but for real give me an input\n";
+            cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+            getline(cin, land);
+            continue;
+        }
+        cout << "Sorry this is not a valid entry. Please try again.\n";
+        cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+        getline(cin, land);
     }
+    if(land == "Fastest"){
 
-    // cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
-    // getline(cin, land);
-    // while(land != "Landmark" && land != "Fastest"){
-    //     if(land == "Gulag"){
-    //         cout<<"We agree that Roshun is gay! but for real give me an input\n";
-    //         cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
-    //         getline(cin, land);
-    //         continue;
-    //     }
-    //     cout << "Sorry this is not a valid entry. Please try again.\n";
-    //     cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
-    //     getline(cin, land);
-    // }
-    // if(land == "Fastest"){
-
-    //     cout << "Input your departing airport: ";
-    //     getline(cin, src);
-    //     if(src == "Hell"){
-    //         src = "Newark Liberty International Airport";
-    //     }
-    //     if(src == "Home"){
-    //         src = "University of Illinois Willard Airport";
-    //     }
-    //     while(airportData.count(src) < 1){
-    //         cout << "Sorry this airport does not exist. Please input another one.\n ";
-    //         cout << "Input your departing airport: ";
-    //         getline(cin, src);
-    //     }
+        cout << "Input your departing airport: ";
+        getline(cin, src);
+        if(src == "Hell"){
+            src = "Newark Liberty International Airport";
+        }
+        if(src == "Home"){
+            src = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(src) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your departing airport: ";
+            getline(cin, src);
+        }
 
 
-    //     cout << "Input your arriving airport: ";
-    //     getline(cin, arrive);
-    //     if(arrive == "Hell"){
-    //         arrive = "Newark Liberty International Airport";
-    //     }
-    //     if(arrive == "Home"){
-    //         arrive = "University of Illinois Willard Airport";
-    //     }
-    //     while(airportData.count(arrive) < 1){
-    //         cout << "Sorry this airport does not exist. Please input another one.\n";
-    //         cout << "Input your arriving airport: ";
-    //         getline(cin, arrive);
-    //     }
+        cout << "Input your arriving airport: ";
+        getline(cin, arrive);
+        if(arrive == "Hell"){
+            arrive = "Newark Liberty International Airport";
+        }
+        if(arrive == "Home"){
+            arrive = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(arrive) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n";
+            cout << "Input your arriving airport: ";
+            getline(cin, arrive);
+        }
 
-    //     //flightMap.print();
-    //     Dijkstra dijkstraTest;
-    //     vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
-    //     reverse(path.begin(),path.end());
-    //     double count = 0;
-    //     for(size_t i = 1; i < path.size(); i++){
-    //         cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
-    //         count += flightMap.getEdgeWeight(path[i-1], path[i]);
-    //     }
-    //     cout << "\n" << "Your total flight distance will be " << count << " miles\n";
-    // }
-    // else if(land == "Landmark"){
-    //     cout << "Input your departing airport: ";
-    //     getline(cin, src);
-    //     if(src == "Hell"){
-    //         src = "Newark Liberty International Airport";
-    //     }
-    //     if(src == "Home"){
-    //         src = "University of Illinois Willard Airport";
-    //     }
-    //     while(airportData.count(src) < 1){
-    //         cout << "Sorry this airport does not exist. Please input another one.\n ";
-    //         cout << "Input your departing airport: ";
-    //         getline(cin, src);
-    //     }
+        //flightMap.print();
+        Dijkstra dijkstraTest;
+        vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
+        reverse(path.begin(),path.end());
+        double count = 0;
+        cout << path[0] << "\n";
+        for(size_t i = 1; i < path.size(); i++){
+            cout << path[i] << "\n";
+            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
+            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+        }
+        cout << "\n" << "Your total flight distance will be " << count << " miles\n";
+    }
+    else if(land == "Landmark"){
+        cout << "Input your departing airport: ";
+        getline(cin, src);
+        if(src == "Hell"){
+            src = "Newark Liberty International Airport";
+        }
+        if(src == "Home"){
+            src = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(src) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your departing airport: ";
+            getline(cin, src);
+        }
 
-    //     cout << "Input your connecting airport: ";
-    //     getline(cin, mid);
-    //     if(mid == "Hell"){
-    //         mid = "Newark Liberty International Airport";
-    //     }
-    //     if(mid == "Home"){
-    //         mid = "University of Illinois Willard Airport";
-    //     }
-    //     while(airportData.count(mid) < 1){
-    //         cout << "Sorry this airport does not exist. Please input another one.\n ";
-    //         cout << "Input your connecting airport: ";
-    //         getline(cin, mid);
-    //     }
+        cout << "Input your connecting airport: ";
+        getline(cin, mid);
+        if(mid == "Hell"){
+            mid = "Newark Liberty International Airport";
+        }
+        if(mid == "Home"){
+            mid = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(mid) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your connecting airport: ";
+            getline(cin, mid);
+        }
 
-    //     cout << "Input your arriving airport: ";
-    //     getline(cin, arrive);
-    //     if(arrive == "Hell"){
-    //         arrive = "Newark Liberty International Airport";
-    //     }
-    //     if(arrive == "Home"){
-    //         arrive = "University of Illinois Willard Airport";
-    //     }
-    //     while(airportData.count(arrive) < 1){
-    //         cout << "Sorry this airport does not exist. Please input another one.\n";
-    //         cout << "Input your arriving airport: ";
-    //         getline(cin, arrive);
-    //     }
+        cout << "Input your arriving airport: ";
+        getline(cin, arrive);
+        if(arrive == "Hell"){
+            arrive = "Newark Liberty International Airport";
+        }
+        if(arrive == "Home"){
+            arrive = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(arrive) < 1){
+            cout << "Sorry this airport does not exist. Please input another one.\n";
+            cout << "Input your arriving airport: ";
+            getline(cin, arrive);
+        }
 
-    //     //flightMap.print();
-    //     Dijkstra dijkstraTest;
-    //     vector<Vertex> path = dijkstraTest.landmarkPath(flightMap, src, mid,arrive);
-    //     // reverse(path.begin(),path.end());
-    //     double count = 0;
-    //     for(size_t i = 1; i < path.size(); i++){
-    //         cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
-    //         count += flightMap.getEdgeWeight(path[i-1], path[i]);
-    //     }
-    //     cout << "\n" << "Your total flight distance will be " << count << " miles\n";
-    // }
+        //flightMap.print();
+        Dijkstra dijkstraTest;
+        vector<Vertex> path = dijkstraTest.landmarkPath(flightMap, src, mid,arrive);
+        // reverse(path.begin(),path.end());
+        double count = 0;
+        for(size_t i = 1; i < path.size(); i++){
+            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
+            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+        }
+        cout << "\n" << "Your total flight distance will be " << count << " miles\n";
+    }
     return 0;
 }
 
@@ -187,12 +195,12 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
             result.push_back(line);
         }
         iata = result[4];
-        if(iata != "\"N/A\""){
-            strlongitude = result[7];
+        if(iata != "\"N/A\""){ //helps to ensure that an iata actually exists for the airport
+            strlongitude = result[7]; //7,6,1 are the respective indices that stored the longtidue, latitude, and airport name
             strlatitude = result[6];
             airportName = result[1];
 
-            iata.erase(0, 1);
+            iata.erase(0, 1); //these 4 lines gets ride of quotation marks
             iata.erase(iata.size() - 1);
             airportName.erase(0, 1);
             airportName.erase(airportName.size() - 1);
@@ -202,8 +210,8 @@ void parseAirports(ifstream &airnames, map<string, Airports> &airportData, map<s
             newport.airportName = airportName;
             newport.iata = iata;
 
-            airportNames[iata] = airportName;   
-            airportData[airportName] = newport;
+            airportNames[iata] = airportName;   //maps iata to airport name
+            airportData[airportName] = newport; //maps airport name to airport object
             if(!flightMap.vertexExists(airportName)){
                 flightMap.insertVertex(airportName);
             }

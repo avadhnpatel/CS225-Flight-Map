@@ -1,3 +1,4 @@
+
 EXENAME = flightmap
 OBJS = graph.o main.o dijkstra.o BFS.o
 
@@ -39,8 +40,8 @@ dijkstra.o: main.cpp dijkstra.cpp
 BFS.o: main.cpp BFS.cpp
 	$(CXX) $(CXXFLAGS) main.cpp BFS.cpp
 
-# test: output_msg tests.cpp
-# 	$(LD) tests.cpp $(LDFLAGS) -o test
+test: output_msg tests.cpp graph.cpp dijkstra.cpp BFS.cpp
+	$(LD) tests.cpp graph.cpp dijkstra.cpp BFS.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
