@@ -20,7 +20,13 @@ public:
         return a->distance > b->distance;
     }
 };
-
+/**
+ * Returns the shortest path between two airports
+ *
+ * @param flightMap The graph of airports and routes
+ * @param srcAirport The source airport
+ * @param dstAirport The destination airport
+ */
 vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dstAirport){
     std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> pq;
     map<Vertex, VertexWeight*> vertexMap;
@@ -85,10 +91,20 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
     
 }
 
+/**
+ * Returns the shortest path when having to go through a third location, also known as landmark path
+ * Uses two calls of the dijkstra method above
+ *
+ * @param flightMap The graph of airports and routes
+ * @param srcAirport The source airport
+ * @param middleAirport The middle airport
+ * @param dstAirport The destination airport
+ */
 vector<Vertex> Dijkstra::landmarkPath(Graph flightMap, Vertex srcAirport, Vertex middleAirport, Vertex dstAirport){
-    vector<Vertex> dijkstraOne = dijkstra(flightMap, srcAirport, middleAirport);
-    vector<Vertex> dijkstraTwo = dijkstra(flightMap, middleAirport, dstAirport);
-    dijkstraTwo.erase(dijkstraTwo.begin());
+    vector<Vertex> dijkstraOne = dijkstra(flightMap, srcAirport, middleAirport); //Get shortest path from point a to c
+    vector<Vertex> dijkstraTwo = dijkstra(flightMap, middleAirport, dstAirport); //Get shortest path from point c to b
+    dijkstraTwo.erase(dijkstraTwo.begin()); //Remove first element from the second path, as it is a repeat of last element in first path
+    //Loop through second path and append elements to first path to give us a single vector
     for(size_t x =0; x<dijkstraTwo.size(); x++){
         dijkstraOne.push_back(dijkstraTwo[x]);
     }
