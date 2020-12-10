@@ -25,10 +25,10 @@ void Parsing::parseAirports(ifstream &airnames, map<string, Airports> &airportDa
     string airportName;
     string iata;
     Airports newport;
-    while(getline(airnames, line)){
+    while(getline(airnames, line)){ //makes sure that a text line exists
         result.clear();
-        stringstream ss(line);
-        while(getline(ss, line, ',')){
+        stringstream ss(line); //gets line
+        while(getline(ss, line, ',')){ //parses through using a comma to seperate
             result.push_back(line);
         }
         iata = result[4];
@@ -64,7 +64,7 @@ void Parsing::parseRoutes(ifstream &routes, map<string,Airports> &airportData, m
     while(getline(routes, line)){
         result.clear();
         stringstream ss(line);
-        while(getline(ss, line, ',')){
+        while(getline(ss, line, ',')){ //parses through using commas to seperate
             result.push_back(line);
         }
         srcAirportIATA = result[2];
