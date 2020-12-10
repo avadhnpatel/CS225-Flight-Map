@@ -40,11 +40,11 @@ int main(int argc, char *argv[]){
     string arrive;
     string land;
 
-    routes.open("routes.dat");
+    routes.open("routes.dat");  
     airnames.open("airports.dat");
     Parsing testOne;
-    testOne.parseAirports(airnames, airportData, airportNames, flightMap);
-    testOne.parseRoutes(routes, airportData, airportNames, flightMap);
+    testOne.parseAirports(airnames, airportData, airportNames, flightMap); //parses through airports.dat
+    testOne.parseRoutes(routes, airportData, airportNames, flightMap); //parses through routes.dat
     
     
     
@@ -66,30 +66,30 @@ int main(int argc, char *argv[]){
 
 
 
-    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: "; //gets input for either landmark or fastest
     getline(cin, land);
-    while(land != "Landmark" && land != "Fastest"){
-        if(land == "Gulag"){
-            cout<<"We agree that Roshun is gay! but for real give me an input\n";
+    while(land != "Landmark" && land != "Fastest"){  //makes sure that input is valid
+        if(land == "Gulag"){ //easter egg 
+            cout<<"We agree that Roshun is useless! but for real give me an input\n";
             cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
             getline(cin, land);
-            continue;
+            continue; 
         }
         cout << "Sorry this is not a valid entry. Please try again.\n";
         cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
         getline(cin, land);
     }
-    if(land == "Fastest"){
+    if(land == "Fastest"){  
 
         cout << "Input your departing airport: ";
         getline(cin, src);
-        if(src == "Hell"){
+        if(src == "Hell"){ //easter egg
             src = "Newark Liberty International Airport";
         }
-        if(src == "Home"){
+        if(src == "Home"){ //easter egg
             src = "University of Illinois Willard Airport";
         }
-        while(airportData.count(src) < 1){
+        while(airportData.count(src) < 1){ //makes sure that airport exists
             cout << "Sorry this airport does not exist. Please input another one.\n ";
             cout << "Input your departing airport: ";
             getline(cin, src);
@@ -98,13 +98,13 @@ int main(int argc, char *argv[]){
 
         cout << "Input your arriving airport: ";
         getline(cin, arrive);
-        if(arrive == "Hell"){
+        if(arrive == "Hell"){ //easter egg
             arrive = "Newark Liberty International Airport";
         }
-        if(arrive == "Home"){
+        if(arrive == "Home"){ //easter egg
             arrive = "University of Illinois Willard Airport";
         }
-        while(airportData.count(arrive) < 1){
+        while(airportData.count(arrive) < 1){ //makes sure that airport exists
             cout << "Sorry this airport does not exist. Please input another one.\n";
             cout << "Input your arriving airport: ";
             getline(cin, arrive);
@@ -112,12 +112,12 @@ int main(int argc, char *argv[]){
 
         //flightMap.print();
         Dijkstra dijkstraTest;
-        vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive);
-        double count = 0;
+        vector<Vertex> path = dijkstraTest.dijkstra(flightMap, src, arrive); //runs dijkstra for fastest path
+        double count = 0; //used for total miles
         // cout << path[0] << "\n";
-        for(size_t i = 1; i < path.size(); i++){
+        for(size_t i = 1; i < path.size(); i++){ //goes through vector outputed by dijkstra 
             // cout << path[i] << "\n";
-            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
+            cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl; 
             count += flightMap.getEdgeWeight(path[i-1], path[i]);
         }
         cout << "\n" << "Your total flight distance will be " << count << " miles\n";
@@ -125,27 +125,27 @@ int main(int argc, char *argv[]){
     else if(land == "Landmark"){
         cout << "Input your departing airport: ";
         getline(cin, src);
-        if(src == "Hell"){
+        if(src == "Hell"){ //easter egg
             src = "Newark Liberty International Airport";
         }
-        if(src == "Home"){
+        if(src == "Home"){ //easter egg
             src = "University of Illinois Willard Airport";
         }
-        while(airportData.count(src) < 1){
+        while(airportData.count(src) < 1){ //makes sure aiport is valid
             cout << "Sorry this airport does not exist. Please input another one.\n ";
             cout << "Input your departing airport: ";
             getline(cin, src);
         }
 
-        cout << "Input your connecting airport: ";
+        cout << "Input your connecting airport: "; 
         getline(cin, mid);
-        if(mid == "Hell"){
+        if(mid == "Hell"){ //easter egg
             mid = "Newark Liberty International Airport";
         }
-        if(mid == "Home"){
+        if(mid == "Home"){ //easter egg
             mid = "University of Illinois Willard Airport";
         }
-        while(airportData.count(mid) < 1){
+        while(airportData.count(mid) < 1){ //makes sure aiport is valid
             cout << "Sorry this airport does not exist. Please input another one.\n ";
             cout << "Input your connecting airport: ";
             getline(cin, mid);
@@ -153,13 +153,13 @@ int main(int argc, char *argv[]){
 
         cout << "Input your arriving airport: ";
         getline(cin, arrive);
-        if(arrive == "Hell"){
+        if(arrive == "Hell"){ //easter egg
             arrive = "Newark Liberty International Airport";
         }
-        if(arrive == "Home"){
+        if(arrive == "Home"){ //easter egg
             arrive = "University of Illinois Willard Airport";
         }
-        while(airportData.count(arrive) < 1){
+        while(airportData.count(arrive) < 1){ //makes sure aiport is valid
             cout << "Sorry this airport does not exist. Please input another one.\n";
             cout << "Input your arriving airport: ";
             getline(cin, arrive);
@@ -167,9 +167,9 @@ int main(int argc, char *argv[]){
 
         //flightMap.print();
         Dijkstra dijkstraTest;
-        vector<Vertex> path = dijkstraTest.landmarkPath(flightMap, src, mid,arrive);
+        vector<Vertex> path = dijkstraTest.landmarkPath(flightMap, src, mid,arrive); //finds all destinations using landmark algorithm
         double count = 0;
-        for(size_t i = 1; i < path.size(); i++){
+        for(size_t i = 1; i < path.size(); i++){ //outputs all elements of landmark
             cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
             count += flightMap.getEdgeWeight(path[i-1], path[i]);
         }
