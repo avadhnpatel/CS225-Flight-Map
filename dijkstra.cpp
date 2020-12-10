@@ -80,6 +80,7 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
     }
     
     // returns the path in reverse order
+    reverse(vertexPath.begin(),vertexPath.end());
     return vertexPath;
     
 }
@@ -87,8 +88,6 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
 vector<Vertex> Dijkstra::landmarkPath(Graph flightMap, Vertex srcAirport, Vertex middleAirport, Vertex dstAirport){
     vector<Vertex> dijkstraOne = dijkstra(flightMap, srcAirport, middleAirport);
     vector<Vertex> dijkstraTwo = dijkstra(flightMap, middleAirport, dstAirport);
-    reverse(dijkstraOne.begin(),dijkstraOne.end());
-    reverse(dijkstraTwo.begin(),dijkstraTwo.end());
     dijkstraTwo.erase(dijkstraTwo.begin());
     for(size_t x =0; x<dijkstraTwo.size(); x++){
         dijkstraOne.push_back(dijkstraTwo[x]);

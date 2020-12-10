@@ -1,6 +1,6 @@
 
 EXENAME = flightmap
-OBJS = graph.o main.o dijkstra.o BFS.o
+OBJS = graph.o main.o dijkstra.o BFS.o parse.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -26,7 +26,7 @@ endif
 
 all : $(EXENAME)
 
-output_msg: ; $(CLANG_VERSION_MSG)
+output_msg: ; $(CLANG_VERSION_MSG) 
 
 $(EXENAME): output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
@@ -40,8 +40,11 @@ dijkstra.o: main.cpp dijkstra.cpp
 BFS.o: main.cpp BFS.cpp
 	$(CXX) $(CXXFLAGS) main.cpp BFS.cpp
 
-test: output_msg tests.cpp graph.cpp dijkstra.cpp BFS.cpp
-	$(LD) tests.cpp graph.cpp dijkstra.cpp BFS.cpp $(LDFLAGS) -o test
+parse.o: main.cpp parse.cpp
+	$(CXX) $(CXXFLAGS) main.cpp parse.cpp
+
+test: output_msg catch/catchmain.cpp parse.cpp tests.cpp graph.cpp dijkstra.cpp BFS.cpp
+	$(LD) catch/catchmain.cpp tests.cpp parse.cpp graph.cpp dijkstra.cpp BFS.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
