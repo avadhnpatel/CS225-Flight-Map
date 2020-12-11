@@ -28,11 +28,13 @@ public:
  * @param dstAirport The destination airport
  */
 vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dstAirport){
+    //Create priority queue to store travelled locations in
     std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> pq;
-    map<Vertex, VertexWeight*> vertexMap;
+    map<Vertex, VertexWeight*> vertexMap; //Create a map with vertext as key, and distance travelled from last point as value
     
     vector<Vertex> allVertices = flightMap.getVertices();
     vector<VertexWeight*> allVertexWeights;
+    //Loop through all vertices to get vertex weights
     for (size_t i = 0; i < allVertices.size(); i++) {
         VertexWeight *newVertexWeight = new VertexWeight;
         newVertexWeight->vertexName = allVertices.at(i);
@@ -50,22 +52,22 @@ vector<Vertex> Dijkstra::dijkstra(Graph flightMap, Vertex srcAirport, Vertex dst
             pq.push(newVertexWeight);
         }
     }
-
-    while (pq.top()->vertexName != dstAirport) {
-        VertexWeight *current = pq.top();
+    
+    while (pq.top()->vertexName != dstAirport) { // Check if top of priority queue is the destination, if not run through code
+        VertexWeight *current = pq.top(); //Get the last entry in path
         pq.pop();
         
-        if (!current->visited) {
-            vector<Vertex> neighborList = flightMap.getAdjacent(current->vertexName);
+        if (!current->visited) { //Check if current node is visited
+            vector<Vertex> neighborList = flightMap.getAdjacent(current->vertexName); //Find adjacent Nodes
             for (size_t i = 0; i < neighborList.size(); i++) {
                 VertexWeight *neighbor = vertexMap[neighborList.at(i)];
-                if (!neighbor->visited) {
+                if (!neighbor->visited) { // Check if the neighboring node had been visited already
                     double currentToNeighborEdgeWeight = flightMap.getEdgeWeight(current->vertexName, neighbor->vertexName);
+                    //RUn through logic to update path
                     if (neighbor-> distance > current->distance + currentToNeighborEdgeWeight) {
                         neighbor-> distance = current->distance + currentToNeighborEdgeWeight;
                         neighbor-> previous = current -> vertexName;
                     }
-                    
                     pq.push(neighbor);
                 }
             }
