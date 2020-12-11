@@ -29,12 +29,12 @@ BFS::BFS(const Graph &flightMap) : flightMap_(flightMap){
 }
 
 vector<Vertex> BFS::BFSearch(const Vertex &v){
-  if (flightMap_.vertexExists(v) == false){
+  if (flightMap_.vertexExists(v) == false){ //makes sure that input exists in map
     throw invalid_argument("Invalid start vertex");
   }
 
-  queue<Vertex> BFSqueue;
-  map<Vertex, bool> visited;
+  queue<Vertex> BFSqueue; //queue for BFS
+  map<Vertex, bool> visited; //map for checking if vertex has been visited
   visited[v] = true;
 
   vector<Vertex> output;
@@ -42,15 +42,15 @@ vector<Vertex> BFS::BFSearch(const Vertex &v){
   BFSqueue.push(v);
 
   while(!BFSqueue.empty()){
-    Vertex currVertex = BFSqueue.front();
-    BFSqueue.pop();
+    Vertex currVertex = BFSqueue.front(); //makes currVertex first element in queue
+    BFSqueue.pop(); //removes currVertex
 
     cout << " Visited: " << currVertex << endl;
-    output.push_back(currVertex);
-    for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){
-      cout << " Reached: " << adjVertex << endl;
-      if(visited.count(adjVertex) == 0)
-        BFSqueue.push(adjVertex);
+    output.push_back(currVertex); //visited currVertex
+    for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){ //iterate through all adjacent vertices
+      cout << " Reached: " << adjVertex << endl; 
+      if(visited.count(adjVertex) == 0) //checks if vertex has been visited
+        BFSqueue.push(adjVertex); //if it has not been visited it pushes to queue and marks it as visited
         visited[adjVertex] = true;
     }
   }
