@@ -1,4 +1,5 @@
 # kandula4-rnavin2-apate429-neehar2
+
 Final Project
 
 To run test: make test -> ./test
@@ -17,8 +18,8 @@ code splits the data based on commas so these additional
 commas led to incorrect data being stored. These additional
 commas were manually removed and any data set that is run
 on this code must not have additional commas. Each element must
-be seperated by a single comma. Each input line for airports and routes
-must be on a new line.
+be seperated by a single comma. Each input line for airports and routes must be on a new line.
+Input files must be named "airports.dat" and "routes.dat".
 
 The airports data set must have airport name as second element, 
 the IATA as the fifth element, the latitude is seventh element, 
