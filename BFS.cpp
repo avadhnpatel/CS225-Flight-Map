@@ -81,34 +81,3 @@ vector<Vertex> BFS::BFSearch(const Vertex &v){
 //   }
 
 // }
-
-// DFS::DFS(const Graph &graph) : graph_(graph) { graph_.print(); }
- 
-// vector<string> DFS::PerformSearch(const string &start_vertex) {
-//   if (!graph_.vertexExists(start_vertex)) {
-//     throw std::invalid_argument("Start Vertex does not exist in the graph");
-//   }
-//   std::vector<string> processed;
- 
-//   std::unordered_set<string> visited;
-//   std::stack<string> discovered;
- 
-//   discovered.push(start_vertex);
-//   while (!discovered.empty()) {
-//     string vertex = discovered.top();
-//     discovered.pop();
-//     if (visited.find(vertex) == visited.end()) {
-//       visited.insert(vertex);
-//       std::cout << "Visited: " << vertex << std::endl;
-//       processed.push_back(vertex);
-//       std::cout << "push back " << std::endl;
-//       for (Vertex &adjacent_vertex : graph_.getAdjacent(vertex)) {
-//         std::cout << "got here" << adjacent_vertex << std::endl;
-//         if (visited.find(adjacent_vertex) == visited.end()) {
-//           discovered.push(adjacent_vertex);
-//         }
-//       }
-//     }
-//   }
-//   return processed;
-// }
