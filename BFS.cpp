@@ -45,7 +45,7 @@ vector<Vertex> BFS::BFSearch(const Vertex &v){
     BFSqueue.pop(); //removes currVertex
     output.push_back(currVertex); //visited currVertex
     for(Vertex &adjVertex : flightMap_.getAdjacent(currVertex)){ //iterate through all adjacent vertices
-      if(visited.count(adjVertex) == 0) //checks if vertex has been visited
+      if(visited[adjVertex] == false) //checks if vertex has been visited
         BFSqueue.push(adjVertex); //if it has not been visited it pushes to queue and marks it as visited
         visited[adjVertex] = true;
     }
