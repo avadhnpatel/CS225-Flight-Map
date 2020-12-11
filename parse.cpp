@@ -53,7 +53,6 @@ void Parsing::parseAirports(ifstream &airnames, map<string, Airports> &airportDa
                 flightMap.insertVertex(airportName);
             }
         }
-        //cout << longitude << "  "<< latitude << "  ";
     }
 }
 void Parsing::parseRoutes(ifstream &routes, map<string,Airports> &airportData, map<string, string> &airportNames, Graph &flightMap){
@@ -75,51 +74,26 @@ void Parsing::parseRoutes(ifstream &routes, map<string,Airports> &airportData, m
         double destlong = airportData[airportNames[destAirportIATA]].longitude;
         double destlat = airportData[airportNames[destAirportIATA]].latitude;
         double distance = findDist(srclong, srclat, destlong, destlat);
-
-        // if(!flightMap.vertexExists(srcAirportIATA)){
-        //     flightMap.insertVertex(srcAirportIATA);
-        // }
-        // if(!flightMap.vertexExists(destAirportIATA)){
-        //     flightMap.insertVertex(destAirportIATA);
-        // }
         
         
         flightMap.insertEdge(airportNames[srcAirportIATA], airportNames[destAirportIATA]);
         flightMap.setEdgeWeight(airportNames[srcAirportIATA], airportNames[destAirportIATA], distance);
         flightMap.setEdgeLabel(airportNames[srcAirportIATA], airportNames[destAirportIATA], srcAirportIATA + " - " + destAirportIATA);
-        //cout << srcAirportIATA << "  "<< destAirportIATA << "  " << distance << "\n";
     }
 }
 
 double Parsing::findDist(double srclong, double srclat, double destlong, double destlat){
-    long double one_deg = (M_PI) / 180; 
-
-    // Convert the latitudes  
-    // and longitudes 
-    // from degree to radians. 
-    double lat1 = srclat * one_deg;
-    double long1 = srclong * one_deg; 
-    double lat2 = destlat * one_deg; 
+    long double one_deg = (M_PI) / 180; //converts pi from radians to degrees
+    double lat2 = destlat * one_deg;  //all 4 lines convert longitude and latitude from degrees to radians
     double long2 = destlong * one_deg; 
-      
-    // Haversine Formula 
-    long double dlong = long2 - long1; 
+    double lat1 = srclat * one_deg; 
+    double long1 = srclong * one_deg; 
+    long double dlong = long2 - long1;  //haversine formula
     long double dlat = lat2 - lat1; 
-  
-    long double ans = pow(sin(dlat / 2), 2) +  
-                          cos(lat1) * cos(lat2) *  
-                          pow(sin(dlong / 2), 2); 
-  
+    long double ans = pow(sin(dlat / 2), 2) +  cos(lat1) * cos(lat2) *  pow(sin(dlong / 2), 2); 
     ans = 2 * asin(sqrt(ans)); 
-  
-    // Radius of Earth in  
-    // Kilometers, R = 6371 
-    // Use R = 3956 for miles 
-    long double R = 3956; 
-      
-    // Calculate the result 
+    long double R = 3956; //earths radius in miles 
     ans = ans * R; 
-  
     return ans;
 }
 

@@ -46,37 +46,17 @@ int main(int argc, char *argv[]){
     testOne.parseAirports(airnames, airportData, airportNames, flightMap); //parses through airports.dat
     testOne.parseRoutes(routes, airportData, airportNames, flightMap); //parses through routes.dat
     
-    
-    
-    // Graph g(false, true);
-    // g.insertEdge("0", "1");
-    // g.insertEdge("0", "2");
-    // g.insertEdge("1", "2");
-    // g.insertEdge("2", "0");
-    // g.insertEdge("2", "3");
-    // g.insertEdge("3", "3");
-
-    // BFS search(g);
-    // vector<Vertex> BFSoutput = search.BFSearch("2");
-
-    // for(size_t i = 0; i < BFSoutput.size(); i++){
-    //     cout << BFSoutput[i] << endl;
-    // }
-
-
-
-
-    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: "; //gets input for either landmark or fastest
+    cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path or \"BFS\" to run the traversal: "; //gets input for either landmark, fastest, or BFS
     getline(cin, land);
-    while(land != "Landmark" && land != "Fastest"){  //makes sure that input is valid
+    while(land != "Landmark" && land != "Fastest" && land !="BFS"){  //makes sure that input is valid
         if(land == "Gulag"){ //easter egg 
             cout<<"We agree that Roshun is useless! but for real give me an input\n";
-            cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+            cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path or \"BFS\" to run the traversal: ";
             getline(cin, land);
             continue; 
         }
         cout << "Sorry this is not a valid entry. Please try again.\n";
-        cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path: ";
+        cout<< "Input \"Landmark\" for a connecting destination or \"Fastest\" for quickest path or \"BFS\" to run the traversal: ";
         getline(cin, land);
     }
     if(land == "Fastest"){  
@@ -174,6 +154,26 @@ int main(int argc, char *argv[]){
             count += flightMap.getEdgeWeight(path[i-1], path[i]); //increases total mile counter
         }
         cout << "\n" << "Your total flight distance will be " << count << " miles\n";
+    }
+    else if(land == "BFS"){
+        cout << "Input the starting airport: ";
+        getline(cin, src);
+        if(src == "Hell"){ //easter egg
+            src = "Newark Liberty International Airport";
+        }
+        if(src == "Home"){ //easter egg
+            src = "University of Illinois Willard Airport";
+        }
+        while(airportData.count(src) < 1){ //makes sure aiport is valid
+            cout << "Sorry this airport does not exist. Please input another one.\n ";
+            cout << "Input your departing airport: ";
+            getline(cin, src);
+        }
+        BFS traversal(flightMap);
+        vector<Vertex> path = traversal.BFSearch(src); //finds all destinations using landmark algorithm
+        for(size_t i = 1; i < path.size(); i++){ //outputs all elements of landmark
+            cout << "\n Visited " << path[i] << "\n";
+        }
     }
     return 0;
 }
