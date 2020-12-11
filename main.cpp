@@ -118,7 +118,7 @@ int main(int argc, char *argv[]){
         for(size_t i = 1; i < path.size(); i++){ //goes through vector outputed by dijkstra 
             // cout << path[i] << "\n";
             cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl; 
-            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+            count += flightMap.getEdgeWeight(path[i-1], path[i]); //increases total mile counter
         }
         cout << "\n" << "Your total flight distance will be " << count << " miles\n";
     }
@@ -171,7 +171,7 @@ int main(int argc, char *argv[]){
         double count = 0;
         for(size_t i = 1; i < path.size(); i++){ //outputs all elements of landmark
             cout << "\n" << "You must go from "<< path[i - 1] << " to " << path[i] << " which is " << flightMap.getEdgeWeight(path[i-1], path[i]) << " miles."<< endl;
-            count += flightMap.getEdgeWeight(path[i-1], path[i]);
+            count += flightMap.getEdgeWeight(path[i-1], path[i]); //increases total mile counter
         }
         cout << "\n" << "Your total flight distance will be " << count << " miles\n";
     }
