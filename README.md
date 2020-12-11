@@ -5,6 +5,7 @@ Final Project
 To run test: make test -> ./test
 
 To run with user input: make -> ./flightmap
+
 Input "Fastest" for Dijkstras Algorithm
 Input "Landmark" for Landmark Algorithm
 
