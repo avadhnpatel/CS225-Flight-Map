@@ -19,7 +19,7 @@ commas led to incorrect data being stored. These additional
 commas were manually removed and any data set that is run
 on this code must not have additional commas. Each element must
 be seperated by a single comma. Each input line for airports and routes must be on a new line.
-Input files must be named "airports.dat" and "routes.dat".
+The input file for the airports data set must be named "airports.dat" and the file for the routes data set must be named "routes.dat".
 
 The airports data set must have airport name as second element, 
 the IATA as the fifth element, the latitude is seventh element, 
