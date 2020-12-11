@@ -27,7 +27,9 @@ the IATA as the fifth element, the latitude as the seventh element,
 and longitude as the eighth element. In the airports data set, the IATA and
 airport name must begin and end with double quotation marks; 
 ex: ("EWR")
-ex: ("Newark Liberty International Airport"). This is a valid input line for Airports:
+ex: ("Newark Liberty International Airport"). 
+
+This is a valid input line for Airports:
 3830,"Chicago O'Hare International Airport","Chicago","United States","ORD","KORD",41.9786,-87.9048,672,-6,"A","America/Chicago","airport","OurAirports"
 
 The routes data set must have source airport IATA as third element,
