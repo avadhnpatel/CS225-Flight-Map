@@ -6,7 +6,7 @@ To run test: make test -> ./test
 
 To run with user input: make -> ./flightmap
 
-Input "Fastest" for Dijkstras Algorithm and input "Landmark" for Landmark Algorithm
+You can input "Fastest" for Dijkstras Algorithm, input "Landmark" for Landmark Algorithm, or input "BFS" to run the BFS traversal.
 
 Airports data set contains airports without IATA values,
 which was replaced by a "\N". This value was changed to
